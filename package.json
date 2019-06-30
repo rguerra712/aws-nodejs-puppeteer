@@ -1,0 +1,38 @@
+{
+  "name": "aws-nodejs-puppeteer",
+  "version": "1.0.0",
+  "description": "A serverless template for aws nodejs using puppeteer, dynamo for state, and sns for longer running tests.",
+  "main": "chrome-script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "R. Stephen Guerra",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@serverless-chrome/lambda": "^1.0.0-55",
+    "aws-sdk": "^2.485.0",
+    "chrome-launcher": "^0.10.5",
+    "puppeteer": "^1.11.0",
+    "serverless-plugin-chrome": "^1.0.0-55",
+    "superagent": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/rguerra712/aws-nodejs-puppeteer.git"
+  },
+  "bugs": {
+    "url": "https://www.github.com:rguerra712/aws-nodejs-puppeteer/issues"
+  },
+  "homepage": "https://www.github.com:rguerra712/aws-nodejs-puppeteer#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.27",
+    "serverless-offline": "^5.5.0",
+    "serverless-plugin-typescript": "^1.1.7",
+    "serverless-pseudo-parameters": "^2.4.0",
+    "serverless-webpack": "^5.3.1",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.2",
+    "webpack": "^4.35.0"
+  }
+}

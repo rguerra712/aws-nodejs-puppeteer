@@ -59,3 +59,10 @@ typings/
 
 # next.js build output
 .next
+
+# tsc output
+.build
+.ts
+
+# webpack output
+.webpack

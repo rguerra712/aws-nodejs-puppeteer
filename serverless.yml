@@ -1,0 +1,51 @@
+service: aws-nodejs-puppeteer
+
+custom:
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'dev'}
+  snsMessageName: ${opt:snsMessageName, 'runTests'}
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ${self:custom.region}
+  stage: ${self:custom.stage}
+  environment:
+    snsMessageName: ${self:custom.snsMessageName}
+    snsMessageArn: arn:aws:sns:us-east-1:#{AWS::AccountId}:${self:custom.snsMessageName}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Resource: "*"
+      Action:
+        - "sns:*"
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-plugin-chrome
+  - serverless-pseudo-parameters
+  - serverless-offline
+  
+package:
+  exclude:
+    - node_modules/puppeteer/.local-chromium/**
+
+functions:
+  post:
+    handler: src/apiHandler.post
+    timeout: 30
+    events:
+      - http:
+          path: /
+          method: post
+  
+  # Put any additional here 
+  exampleTest:
+    handler: src/tests/example-test-handler.run
+    memorySize: 1536MB
+    timeout: 900
+    events:
+      - sns: ${self:custom.snsMessageName}
+      # The below is optional in case you want to run your test
+      - http:
+          path: /exampleTest
+          method: get
