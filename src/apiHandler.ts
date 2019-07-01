@@ -1,10 +1,10 @@
 import { SNS } from 'aws-sdk';
-import { APIGatewayProxyHandler } from 'aws-lambda';
+import { APIGatewayProxyHandler, APIGatewayProxyEvent } from 'aws-lambda';
 
 
-export const post: APIGatewayProxyHandler = async () =>  {
+export const post: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) =>  {
   const params: SNS.PublishInput = {
-    Message: '',
+    Message: event.body,
     TopicArn: process.env.snsMessageArn,
   };
   console.log('params', params);

@@ -4,6 +4,7 @@ custom:
   region: ${opt:region, 'us-east-1'}
   stage: ${opt:stage, 'dev'}
   snsMessageName: ${opt:snsMessageName, 'runTests'}
+  testRunDynamoTable: ${self:service}-${self:provider.stage}-testRuns
 
 provider:
   name: aws
@@ -13,6 +14,7 @@ provider:
   environment:
     snsMessageName: ${self:custom.snsMessageName}
     snsMessageArn: arn:aws:sns:us-east-1:#{AWS::AccountId}:${self:custom.snsMessageName}
+    testRunDynamoTable: ${self:custom.testRunDynamoTable}
   iamRoleStatements:
     - Effect: "Allow"
       Resource: "*"
@@ -49,3 +51,17 @@ functions:
       - http:
           path: /exampleTest
           method: get
+
+resources:
+  Resources:
+    TestRunsTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: testRunId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: testRunId
+            KeyType: HASH
+        TableName: ${self:custom.testRunDynamoTable}
+        BillingMode: PAY_PER_REQUEST

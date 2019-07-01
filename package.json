@@ -27,6 +27,7 @@
   "homepage": "https://www.github.com:rguerra712/aws-nodejs-puppeteer#readme",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.27",
+    "@types/puppeteer": "^1.12.4",
     "serverless-offline": "^5.5.0",
     "serverless-plugin-typescript": "^1.1.7",
     "serverless-pseudo-parameters": "^2.4.0",
